@@ -72,7 +72,8 @@ main = do
     system cmd
     src <- readFile "platform.packages.raw"
 
-    let programs = drop 2 $ lines src
+    let fw ln    = case words ln of { [] -> ""; p:_ -> p; }
+        programs = map fw $ drop 2 $ lines src
     writeFile "platform.packages" (unlines programs)
 
     removeFile "platform.packages.raw"
